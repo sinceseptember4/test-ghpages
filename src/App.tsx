@@ -15,17 +15,16 @@ const App: React.FC = ( ) => {
         data: number[];
         borderColor: string;
     }[];
-}>({
-  labels: labels,
-  datasets: [
-    {
-      label: "",
-      data:  [],
-      borderColor: "",
-    }
-  ],
-});
-
+    }>({
+    labels: labels,
+    datasets: [
+      {
+        label: "",
+        data:  [],
+        borderColor: "",
+      }
+    ],
+    });
   const [Stateaxios, setStateaxios] = React.useState<number[]>();
   const todoufuken = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県","茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県","三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県","鳥取県","島根県","岡山県","広島県","山口県","徳島県","香川県","愛媛県","高知県","福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"]
   const headers = {
@@ -35,12 +34,11 @@ const App: React.FC = ( ) => {
     label: string;
     data: number[];
     borderColor: string;
-}[]=[]
+  }[]=[]
 
-async function async(){
+async function getdata(){
   
   const elements = document.getElementsByName("select")as NodeListOf<HTMLElement>;
-
   let posts :never[]= [];
   for (let i=0; i<elements.length; i++){
       {/* @ts-ignore */}
@@ -50,7 +48,6 @@ async function async(){
     }
   }
 
-  datasetbefore =[];
   for await (const v of posts) {
   
     let datavalue :number[]= [];
@@ -61,6 +58,7 @@ async function async(){
       for (let step = 0; step < datas.length; step++) {
       {/* @ts-ignore */}
       datavalue.push(datas[step].value);
+      console.log(datas[step]);
       }
       setStateaxios(datavalue);
       
@@ -80,15 +78,11 @@ async function async(){
     labels: labels,
     datasets: datasetbefore,
   };
-
   setgraphdata(graphData) ;
-
 };
-
 const  buttom =  () => {
-  async();
+  getdata();
 }
-
   const options: {} = {
     maintainAspectRatio: false,
     responsive: false
@@ -116,11 +110,10 @@ const  buttom =  () => {
   const Width :number=  document.documentElement.clientWidth*0.9; 
   const Height :number= Width*0.5;
 
-
-
   return (
     <>
   <div style={Selectstyle}>
+    <SelectButtom></SelectButtom>
   <label>
       <div style={sell}><input type="checkbox" name="select" value="1"/><p style={p} >北海道</p></div>
       <div style={sell}><input type="checkbox" name="select" value="2"/><p style={p}>青森県</p></div>
